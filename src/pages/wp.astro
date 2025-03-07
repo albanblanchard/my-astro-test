@@ -1,0 +1,63 @@
+---
+import BaseHead from '@/components/BaseHead.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '@/consts';
+import TechStackList from '@/components/TechStackList.astro';
+import type { Post } from '@/interfaces/post';
+
+
+const response = await fetch(`${import.meta.env.WP_REST_API}/posts?_fields=id,title,excerpt,content,categories,tags,date,featured_media,acf,_links.acf:term`, {	
+	method: 'GET', 
+	headers: {
+		'Authorization': 'Basic ' + btoa(`${import.meta.env.WP_USERNAME}:${import.meta.env.WP_PASSWORD}`),
+		'Content-Type': 'application/json'
+	}
+} satisfies RequestInit);
+let posts: Post[] = await response.json();
+
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>🧑‍🚀 Hello, Astronaut!</h1>
+			<h2>Astro + WordPress 🚀</h2>
+			<hr class="my-6 border-0" />
+{
+  posts.map((post: any) => (
+		<article class="post" data-key={post.id}>
+			<h3 set:html={post.title.rendered} />
+			<blockquote class="text-xl" set:html={post.excerpt.rendered} />
+
+			{post.acf.languages_stack && post.acf.languages_stack.length > 0 && 
+				<div class="flex items-start">Languages: <TechStackList terms={post.acf.languages_stack} taxonomy='language' /></div>
+			}
+			{post.acf.frontend_stack && post.acf.frontend_stack.length > 0 && 
+				<div class="flex items-start">Frontend: <TechStackList terms={post.acf.frontend_stack} taxonomy='frontend-tech' /></div>
+			}
+			{post.acf.backend_stack && post.acf.backend_stack.length > 0 && 
+				<div class="flex items-start">Backend: <TechStackList terms={post.acf.backend_stack} taxonomy='backend-tech' /></div>
+			}
+			{post.acf.devops_stack && post.acf.devops_stack.length > 0 && 
+				<div class="flex items-start">DevOps: <TechStackList terms={post.acf.devops_stack} taxonomy='devops-tech' /></div>
+			}
+			<br />
+			<button class="lowercase text-sm p-2 border-1 rounded-sm border-gray-300">tell me more</button>
+		</article>
+		<hr class="my-4" />
+  ))
+}
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<script define:vars={{ posts }}>
+	console.log('🍺 ~ posts:', posts);
+</script>
