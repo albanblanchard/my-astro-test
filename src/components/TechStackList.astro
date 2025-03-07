@@ -1,0 +1,46 @@
+---
+import { API_AUTH_HEADERS } from "@/consts";
+import { Image } from "astro:assets";
+import type { TechTerm, Props } from "@/interfaces/techStackList";
+const {terms, taxonomy} = Astro.props;
+
+const getTerm = async (id: number, taxonomy: string): Promise<TechTerm> => {
+  const response = await fetch(
+    `${import.meta.env.WP_REST_API}/${taxonomy}/${id}?_fields=name,acf.tech_logo`, 
+    {	method:'GET', headers: API_AUTH_HEADERS}
+  );
+  return response.json();
+}
+
+const getTermImage = async (id: number): Promise<{ source_url: string | null }> => {
+  if (!id) return { source_url: null };
+  const response = await fetch(
+    `${import.meta.env.WP_REST_API}/media/${id}?_fields=source_url`, 
+    {	method:'GET', headers: API_AUTH_HEADERS}
+  );
+  return response.json();
+}
+
+const techTerms: TechTerm[] = await Promise.all(
+  terms.map(async term => {
+    let techTerm = await getTerm(term, taxonomy);
+    const termImage = techTerm.acf.tech_logo ? await getTermImage(techTerm.acf.tech_logo) : { source_url: null };
+    techTerm.id = term;
+    techTerm.image = termImage;
+
+    return techTerm;
+  })
+);
+---
+
+<ul class="flex flex-wrap items-center">
+  {
+    techTerms.map((term) => (
+      <li class="inline-flex items-center justify-center px-1 py-0.5 m-1 rounded-sm bg-gray-100 text-gray-800" data-key={term.id}>
+        {term.image?.source_url && 
+          <Image src={term.image.source_url} alt={term.name} class="h-4 w-auto inline mr-0.5" height={16} width={16} loading="eager" />
+        }<span class="flex leading-[1em] pt-[0.15em] items-center">{term.name}</span>
+      </li>
+    ))
+  }
+</ul>
