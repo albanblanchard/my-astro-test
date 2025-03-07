@@ -13,10 +13,13 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = NODE_TLS_REJECT_UNAUTHORIZED;
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://example.com',
+  site: 'http://localhost',
   integrations: [mdx(), sitemap(), react()],
-
   vite: {
     plugins: [tailwindcss()],
   },
+  image: {
+    domains: ["wpresume.local", "localhost", "cms.albanblanchard.fr"], 
+    remotePatterns: [{ protocol: "https" }],
+  }
 });
