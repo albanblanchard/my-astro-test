@@ -24,4 +24,4 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Print name
-        run: echo "Hello. My API_KEY is $THE_TEST"
+        run: echo "Hello $THE_TEST . My PW is $PUBLIC_WP_PASSWORD"
