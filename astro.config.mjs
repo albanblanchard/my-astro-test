@@ -15,7 +15,7 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = NODE_TLS_REJECT_UNAUTHORIZED;
 // https://astro.build/config
 export default defineConfig({
   site: REPO_SITE_URL,
-  base: REPO_BASE_URL,  
+  base: REPO_BASE_URL,
   integrations: [mdx(), sitemap(), react()],
   vite: {
     plugins: [tailwindcss()],
