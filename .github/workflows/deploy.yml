@@ -17,6 +17,10 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      WP_REST_API: ${{ secrets.WP_REST_API }}
+      WP_USERNAME: ${{ secrets.WP_USERNAME }}
+      WP_PASSWORD: ${{ secrets.WP_PASSWORD }}
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
@@ -26,10 +30,6 @@ jobs:
           node-version: 23 # The specific version of Node that should be used to build your site. Defaults to 18. (optional)
           package-manager: npm@latest # The Node package manager that should be used to install dependencies and build your site. Automatically detected based on your lockfile. (optional)
             # path: . # The root location of your Astro project inside the repository. (optional)
-        env:
-          WP_REST_API: ${{ secrets.WP_REST_API }}
-          WP_USERNAME: ${{ secrets.WP_USERNAME }}
-          WP_PASSWORD: ${{ secrets.WP_PASSWORD }}
 
   deploy:
     needs: build
