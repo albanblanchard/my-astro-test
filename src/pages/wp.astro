@@ -2,17 +2,14 @@
 import BaseHead from '@/components/BaseHead.astro';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '@/consts';
+import { SITE_TITLE, SITE_DESCRIPTION, API_AUTH_HEADERS } from '@/consts';
 import TechStackList from '@/components/TechStackList.astro';
 import type { Post } from '@/interfaces/post';
 
 
-const response = await fetch(`${import.meta.env.PUBLIC_WP_REST_API}/posts?_fields=id,title,excerpt,content,categories,tags,date,featured_media,acf,_links.wp:term`, {	
+const response = await fetch(`${import.meta.env.WP_REST_API}/posts?_fields=id,title,excerpt,content,categories,tags,date,featured_media,acf,_links.wp:term`, {	
 	method: 'GET', 
-	headers: {
-		'Authorization': 'Basic ' + btoa(`${import.meta.env.PUBLIC_WP_USERNAME}:${import.meta.env.PUBLIC_WP_PASSWORD}`),
-		'Content-Type': 'application/json'
-	}
+	headers: API_AUTH_HEADERS
 } satisfies RequestInit);
 let posts: Post[] = await response.json();
 
