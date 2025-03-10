@@ -4,7 +4,7 @@ on:
   # Trigger the workflow every time you push to the `main` branch
   # Using a different branch name? Replace `main` with your branch’s name
   push:
-    branches: [test]
+    branches: [develop]
   # Allows you to run this workflow manually from the Actions tab on GitHub.
   workflow_dispatch:
 
@@ -14,16 +14,17 @@ permissions:
   pages: write
   id-token: write
 
-env:
-  PUBLIC_WP_REST_API: ${{ vars.PUBLIC_WP_REST_API }}
-  PUBLIC_WP_USERNAME: bob
-  PUBLIC_WP_PASSWORD: le-testeur
-  PUBLIC_BASE_URL: my-astro-test
-  PUBLIC_SITE_URL: https://cms.albanblanchard.fr/
-
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+    env:
+      PUBLIC_WP_REST_API: ${{ vars.PUBLIC_WP_REST_API }}
+      PUBLIC_WP_USERNAME: ${{ vars.PUBLIC_WP_USERNAME }}
+      PUBLIC_WP_PASSWORD: ${{ vars.PUBLIC_WP_PASSWORD }}
+      PUBLIC_BASE_URL: ${{ vars.PUBLIC_BASE_URL }}
+      PUBLIC_SITE_URL: ${{ vars.PUBLIC_SITE_URL }}
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v4

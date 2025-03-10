@@ -2,7 +2,7 @@ name: Deploy Pifou
 
 on:
   push:
-    branches: [develop]
+    branches: [test]
   workflow_dispatch:
 
 permissions:
