@@ -9,7 +9,7 @@ export interface Post {
 	date: string;
 	featured_media: number;
 	_links: { 
-		'acf:term': {
+		'wp:term': {
 			href: string;
 			embeddable: boolean;
 			taxonomy: string;
@@ -22,7 +22,7 @@ interface Acf {
 	frontend_stack: number[];
 	backend_stack: number[];
 	devops_stack: number[];
-	languages: number[];
+	languages_stack: number[];
 	achievements: {
 		tech_achievements: string;
 		design_achievements: string;
