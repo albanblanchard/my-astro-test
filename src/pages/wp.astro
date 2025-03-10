@@ -7,7 +7,7 @@ import TechStackList from '@/components/TechStackList.astro';
 import type { Post } from '@/interfaces/post';
 
 
-const response = await fetch(`${import.meta.env.WP_REST_API}/posts?_fields=id,title,excerpt,content,categories,tags,date,featured_media,acf,_links.acf:term`, {	
+const response = await fetch(`${import.meta.env.WP_REST_API}/posts?_fields=id,title,excerpt,content,categories,tags,date,featured_media,acf,_links.wp:term`, {	
 	method: 'GET', 
 	headers: {
 		'Authorization': 'Basic ' + btoa(`${import.meta.env.WP_USERNAME}:${import.meta.env.WP_PASSWORD}`),
@@ -30,7 +30,7 @@ let posts: Post[] = await response.json();
 			<h2>Astro + WordPress 🚀</h2>
 			<hr class="my-6 border-0" />
 {
-  posts.map((post: any) => (
+  posts.map((post: Post) => (
 		<article class="post" data-key={post.id}>
 			<h3 set:html={post.title.rendered} />
 			<blockquote class="text-xl" set:html={post.excerpt.rendered} />
