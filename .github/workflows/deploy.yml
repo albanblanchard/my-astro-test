@@ -4,7 +4,7 @@ on:
   # Trigger the workflow every time you push to the `main` branch
   # Using a different branch name? Replace `main` with your branch’s name
   push:
-    branches: [glop]
+    branches: [develop]
   # Allows you to run this workflow manually from the Actions tab on GitHub.
   workflow_dispatch:
 
@@ -14,12 +14,12 @@ permissions:
   pages: write
   id-token: write
 
-env:
-  PUBLIC_WP_REST_API: ${{ vars.PUBLIC_WP_REST_API }}
-  PUBLIC_WP_USERNAME: bob
-  PUBLIC_WP_PASSWORD: le-testeur
-  PUBLIC_BASE_URL: my-astro-test
-  PUBLIC_SITE_URL: https://cms.albanblanchard.fr/
+#env:
+  #PUBLIC_WP_REST_API: ${{ vars.PUBLIC_WP_REST_API }}
+  #PUBLIC_WP_USERNAME: bob
+  #PUBLIC_WP_PASSWORD: le-testeur
+  #PUBLIC_BASE_URL: my-astro-test
+  #PUBLIC_SITE_URL: https://cms.albanblanchard.fr/
 
 jobs:
   build:
@@ -27,22 +27,5 @@ jobs:
       THE_TEST: ${{ secrets.THE_TEST }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout your repository using git
-        uses: actions/checkout@v4
-      - name: Install, build, and upload your site output
-        uses: withastro/action@v3
-        with:
-          node-version: 23 # The specific version of Node that should be used to build your site. Defaults to 18. (optional)
-          package-manager: npm@latest # The Node package manager that should be used to install dependencies and build your site. Automatically detected based on your lockfile. (optional)
-            # path: . # The root location of your Astro project inside the repository. (optional)
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Glop glop
+        run: echo "Hello $THE_TEST !"
