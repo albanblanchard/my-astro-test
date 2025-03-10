@@ -17,7 +17,7 @@ permissions:
 jobs:
   build:
     env:
-      WP_REST_API: ${{ secrets.WP_REST_API }}
+      PUBLIC_WP_REST_API: ${{ secrets.PUBLIC_WP_REST_API }}
       WP_USERNAME: ${{ secrets.WP_USERNAME }}
       WP_PASSWORD: ${{ secrets.WP_PASSWORD }}
     runs-on: ubuntu-latest

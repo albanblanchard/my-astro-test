@@ -6,7 +6,7 @@ const {terms, taxonomy} = Astro.props;
 
 const getTerm = async (id: number, taxonomy: string): Promise<TechTerm> => {
   const response = await fetch(
-    `${import.meta.env.WP_REST_API}/${taxonomy}/${id}?_fields=name,acf.tech_logo`, 
+    `${import.meta.env.PUBLIC_WP_REST_API}/${taxonomy}/${id}?_fields=name,acf.tech_logo`, 
     {	method:'GET', headers: API_AUTH_HEADERS}
   );
   return response.json();
@@ -15,7 +15,7 @@ const getTerm = async (id: number, taxonomy: string): Promise<TechTerm> => {
 const getTermImage = async (id: number): Promise<{ source_url: string | null }> => {
   if (!id) return { source_url: null };
   const response = await fetch(
-    `${import.meta.env.WP_REST_API}/media/${id}?_fields=source_url`, 
+    `${import.meta.env.PUBLIC_WP_REST_API}/media/${id}?_fields=source_url`, 
     {	method:'GET', headers: API_AUTH_HEADERS}
   );
   return response.json();
