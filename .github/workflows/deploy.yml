@@ -15,11 +15,11 @@ permissions:
   id-token: write
 
 env:
-  PUBLIC_WP_REST_API: ${{ secrets.PUBLIC_WP_REST_API }}
-  WP_USERNAME: ${{ vars.WP_USERNAME }}
-  WP_PASSWORD: ${{ vars.WP_PASSWORD }}
-  BASE_URL: ${{ vars.BASE_URL }}
-  SITE_URL: ${{ vars.SITE_URL }}
+  PUBLIC_WP_REST_API: ${{ vars.PUBLIC_WP_REST_API }}
+  PUBLIC_WP_USERNAME: ${{ vars.WP_USERNAME }}
+  PUBLIC_WP_PASSWORD: ${{ vars.WP_PASSWORD }}
+  PUBLIC_BASE_URL: ${{ vars.BASE_URL }}
+  PUBLIC_SITE_URL: ${{ vars.SITE_URL }}
 
 jobs:
   build:

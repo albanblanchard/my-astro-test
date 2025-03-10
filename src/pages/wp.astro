@@ -10,7 +10,7 @@ import type { Post } from '@/interfaces/post';
 const response = await fetch(`${import.meta.env.PUBLIC_WP_REST_API}/posts?_fields=id,title,excerpt,content,categories,tags,date,featured_media,acf,_links.wp:term`, {	
 	method: 'GET', 
 	headers: {
-		'Authorization': 'Basic ' + btoa(`${import.meta.env.WP_USERNAME}:${import.meta.env.WP_PASSWORD}`),
+		'Authorization': 'Basic ' + btoa(`${import.meta.env.PUBLIC_WP_USERNAME}:${import.meta.env.PUBLIC_WP_PASSWORD}`),
 		'Content-Type': 'application/json'
 	}
 } satisfies RequestInit);
