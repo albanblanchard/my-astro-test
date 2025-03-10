@@ -16,7 +16,7 @@ jobs:
     environment:
       name: github-pages
     env:
-      GLOP: 'glop'
+      PUBLIC_WP_PASSWORD: ${{vars.PUBLIC_WP_PASSWORD}}
       THE_TEST: ${{secrets.THE_TEST}}
 
     runs-on: ubuntu-latest
