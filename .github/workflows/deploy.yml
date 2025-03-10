@@ -4,7 +4,7 @@ on:
   # Trigger the workflow every time you push to the `main` branch
   # Using a different branch name? Replace `main` with your branch’s name
   push:
-    branches: [develop]
+    branches: [glop]
   # Allows you to run this workflow manually from the Actions tab on GitHub.
   workflow_dispatch:
 
@@ -23,6 +23,8 @@ env:
 
 jobs:
   build:
+    env:
+      THE_TEST: ${{ secrets.THE_TEST }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout your repository using git
