@@ -20,11 +20,11 @@ jobs:
     environment:
       name: github-pages
     env:
-      PUBLIC_WP_REST_API: ${{ vars.PUBLIC_WP_REST_API }}
-      PUBLIC_WP_USERNAME: ${{ vars.PUBLIC_WP_USERNAME }}
-      PUBLIC_WP_PASSWORD: ${{ vars.PUBLIC_WP_PASSWORD }}
-      PUBLIC_BASE_URL: ${{ vars.PUBLIC_BASE_URL }}
-      PUBLIC_SITE_URL: ${{ vars.PUBLIC_SITE_URL }}
+      WP_REST_API: ${{ secrets.WP_REST_API }}
+      WP_USERNAME: ${{ secrets.WP_USERNAME }}
+      WP_PASSWORD: ${{ secrets.WP_PASSWORD }}
+      REPO_BASE_URL: ${{ secrets.REPO_BASE_URL }}
+      REPO_SITE_URL: ${{ secrets.REPO_SITE_URL }}
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
